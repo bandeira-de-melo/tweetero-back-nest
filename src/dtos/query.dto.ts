@@ -6,5 +6,5 @@ export class QueryDto {
     @IsNumberString()
     @Transform((value)=> Number(value.value))
     @IsOptional()
-    page: string;
+    page: number;
 }

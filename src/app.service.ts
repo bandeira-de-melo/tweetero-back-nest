@@ -9,8 +9,8 @@ export class AppService {
   private users: User[];
   private tweets: Tweet[]
   constructor(){
-    this.users = []//why
-    this.tweets = []//why
+    this.users = []
+    this.tweets = []
   }
   createUser(body: CreateUserDto) {
     const user = new User(body.username, body.avatar)
@@ -27,8 +27,11 @@ export class AppService {
     }
   }
 
-  getTweets(){
-    return this.tweets.slice(-1, -15);
+  getTweets(page: number | undefined){
+    if(page){
+      return this.tweets.slice(-1, -15);
+    }
+    
   }
 
   getUserTweets(username: string) {
