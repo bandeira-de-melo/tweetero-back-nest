@@ -8,12 +8,10 @@ import { CreateTweetDto } from './dtos/createTweet.dto';
 export class AppService {
   private users: User[];
   private tweets: Tweet[]
-  
   constructor(){
-    this.users = [];
-    this.tweets = []
+    this.users = []//why
+    this.tweets = []//why
   }
-
   createUser(body: CreateUserDto) {
     const user = new User(body.username, body.avatar)
     return this.users.push(user);
@@ -27,6 +25,18 @@ export class AppService {
     } else {
       throw new HttpException('Not Authorized.', HttpStatus.UNAUTHORIZED)
     }
+  }
+
+  getTweets(){
+    return this.tweets.slice(-1, -15);
+  }
+
+  getUserTweets(username: string) {
+    const user = this.findOneUser(username)
+    if(!user) return []
+    const posts = this.tweets.filter(tweet => tweet["username"] === username)
+    const tweets = posts.map((post) => { return { username: post["username"], avatar: user["avatar"], tweet: post["tweet"]}})
+    return tweets;
   }
 
   findOneUser(username: string) {
