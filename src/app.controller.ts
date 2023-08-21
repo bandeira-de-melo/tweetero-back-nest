@@ -26,11 +26,10 @@ export class AppController {
 
   @Get("tweets")
   getTweets(@Query() page: QueryDto){
-    console.log(typeof(page.page))
-    if(page === undefined){
-      return `All tweets`;
+    if(page.page === undefined){
+      return this.appService.getTweets(page.page)
     } else {
-      return 'this.getTweets(page)';
+      return this.appService.getTweets(undefined);
     }
   }
   
